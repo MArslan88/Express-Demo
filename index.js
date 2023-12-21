@@ -14,6 +14,10 @@ const dataError = {
     message: "The course with the given ID was not found",
     responseCode: "404",
 };
+const badReqError = {
+    message: "Please enter the name of the course.",
+    responseCode: "400",
+};
 
 app.get('/', (req, res) =>{
     res.send('Hello world');
@@ -41,8 +45,8 @@ app.get('/', (req, res) =>{
 
 
 app.get('/api/courses', (req, res) => {
-    res.send(courses);
-    // res.send({courses});
+    res.send(courses); // array on root
+    // res.send({courses}); // object on root
 
 });
 
@@ -56,6 +60,12 @@ app.get('/api/courses/:id', (req, res) => {
 
 // POST request to add new course
 app.post('/api/courses', (req, res) => {
+    // status code 400 bad request
+    if(!req.body.name || req.body.name.length < 3){
+        res.status(400).send(badReqError);
+        return;
+    }
+
     const course = {
         id: courses.length +1,
         name: req.body.name
