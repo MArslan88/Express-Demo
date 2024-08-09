@@ -85,8 +85,8 @@ app.post('/api/courses', (req, res) => {
     console.log(result);
 
     // status code 400 bad request
-    if(!req.body.name || req.body.name.length < 3){
-        res.status(400).send(badReqError);
+    if(result.error){
+        res.status(400).send(result.error.details[0].message);
         return;
     }
 
