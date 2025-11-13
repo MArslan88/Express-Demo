@@ -98,6 +98,32 @@ app.post('/api/courses', (req, res) => {
     res.send(course);
 });
 
+app.put('/api/courses/:id', (req, res) => {
+    // Look up the course
+    // if not existing, return 404
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if(!course) res.status(404).send(dataError);
+    res.send(course);
+
+    // validate
+    // if invalid, return 400 - ad request
+    const schema = {
+        name : Joi.string().min(3).required()
+    }
+    const result = Joi.validate(req.body, schema);
+    console.log(result);
+
+    // status code 400 bad request
+    if(result.error){
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    // update course
+    // return the updated course
+
+});
+
 
 
 const port = process.env.PORT || 3000;

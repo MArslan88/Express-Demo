@@ -71,11 +71,11 @@ app.listen(3000, ()=> console.log('Listening on port 3000...'));
 but we also have another better method for this
 install this package
 
-1- npm i -g nodemon
+	npm i -g nodemon
 
 after installation of the package now use this command 
 
-2- nodemon index.js
+	nodemon index.js
 now this nodemon will watching all the files
 ===========================================================================
 port 3000 is not always available so to handle this dynamically
